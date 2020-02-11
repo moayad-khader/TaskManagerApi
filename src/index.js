@@ -4,7 +4,7 @@ const User=require('./models/users');
 const Tasks=require('./models/tasks');
 const user_router=require('../src/routers/users');
 const task_router=require('../src/routers/tasks');
-const auth=require('../src/midleware/auth');
+
 const express_session=require('express-session');
 const bodyParser=require('body-parser');
 
