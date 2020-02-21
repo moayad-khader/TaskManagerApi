@@ -1,4 +1,4 @@
-const sgMail=require('@sendgrid/mail');
+const sgMail=require('@sendgrid/mail');//npm scope
 
 const sendgridAPikey=process.env.SENDGRID_API_KEY;
 

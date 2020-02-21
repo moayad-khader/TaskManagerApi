@@ -97,7 +97,7 @@ router.patch(Routes.Profile,auth,async (req,res)=>{
 })
 
 
-//delete a user by id
+//delete a user  
 router.delete(Routes.Profile,auth,async(req,res)=>{
 
     try{

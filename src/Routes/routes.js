@@ -4,7 +4,8 @@ const Routes={
     logOut:'users/logout',
     logOutAll:'/users/logoutall',
     Profile:'/users/me',
-    ProfilePicture:'/users/me/avatar'
+    ProfilePicture:'/users/me/avatar',
+    taskMethods:'/tasks'
    
 };
 

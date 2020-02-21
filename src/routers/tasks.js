@@ -4,9 +4,11 @@ const auth=require('../midleware/auth')
 
 const router=new express.Router()
 
+const Routes=require('../Routes/routes')
+
 
 //creation endpoint for tasks
-router.post('/tasks',auth,async (req,res)=>{
+router.post(Routes.taskMethods,auth,async (req,res)=>{
 
     const new_task=new Tasks({
         ...req.body,
@@ -27,7 +29,7 @@ router.post('/tasks',auth,async (req,res)=>{
 //fetching all tasks GET /tasks?completed=
 // GET /tasks?limit=&skip=
 //GET /tasks?sortBy=createdAt:desc
-router.get('/tasks',auth,async(req,res)=>{
+router.get(Routes.taskMethods,auth,async(req,res)=>{
     const match={}
     const sort={}
 
