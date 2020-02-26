@@ -1,14 +1,13 @@
+const bodyParser=require('body-parser');
 const express=require('express');
 require('./db/mongoose');
+//FIXME delete
 const User=require('./models/users');
 const Tasks=require('./models/tasks');
+
+//SECTION API
 const user_router=require('../src/routers/users');
 const task_router=require('../src/routers/tasks');
-
-
-const bodyParser=require('body-parser');
-
-
 
 app=express();
 app.use(bodyParser.json())

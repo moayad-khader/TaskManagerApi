@@ -1,14 +1,19 @@
 const mongoose=require('mongoose');
 const validator=require('validator');
-const bcrypt=require('bcrypt')
-const jwt=require('jsonwebtoken')
-const Tasks=require('../models/tasks')
+const bcrypt=require('bcrypt');
+//FIXME fix this in a way to let middleware to takke care of tokens
+const jwt=require('jsonwebtoken');
+const Tasks=require('../models/tasks');
 
-const new_user=new mongoose.Schema({
+/**
+ * @password => encrypted
+ */
+const UserSchema=new mongoose.Schema({
     name:{
         type:String,
         trim:true,
         required:true,
+        //TODO match => to exclude &* regular express "/^{a-z}A-Z-0-9\" , throw error
     },
     email:{
         type:String,
@@ -49,13 +54,13 @@ const new_user=new mongoose.Schema({
      timestamps:true
  })
 
- new_user.virtual('tasks',{
+ UserSchema.virtual('tasks',{
      ref:'Tasks',
      localField:'_id',
      foreignField:"owner"
  })
 
-new_user.methods.toJSON= function(){
+UserSchema.methods.toJSON= function(){
     const user=this
     const userObject=user.toObject()
     delete userObject.password
@@ -64,7 +69,7 @@ new_user.methods.toJSON= function(){
     return userObject
 }
 
-new_user.methods.generateAuthToken=async function(){
+UserSchema.methods.generateAuthToken=async function(){
     const user=this
     const token=jwt.sign({_id:user._id.toString()},process.env.JWT_SECRET)
     user.tokens=user.tokens.concat({token:token})
@@ -73,20 +78,24 @@ new_user.methods.generateAuthToken=async function(){
 }
 
 
- new_user.statics.finduser=async (email,password)=>{
+UserSchema.statics.finduser=async (email,password)=>{
     const user=await User.findOne({email:email})
-     if(!user){
-         throw new Error('unable to find user')
+
+    if(!user){
+        throw new Error('unable to find user')
+    }
+
+    const ismatch=await bcrypt.compare(password,user.password)
+    if(!ismatch){
+        throw new Error("Wrong password")
      }
-     const ismatch=await bcrypt.compare(password,user.password)
-     if(!ismatch){
-         throw new Error("Wrong password")
-     }
-     return user
+
+    return user
 
 }
+
 //hash the password
- new_user.pre('save',async function(next){
+UserSchema.pre('save',async function(next){
     const user=this
     if(user.isModified('password')){
         user.password=await bcrypt.hash(user.password,8)
@@ -96,7 +105,7 @@ new_user.methods.generateAuthToken=async function(){
  })
 
  //delete the tasks when the user removed
- new_user.pre('remove',async function(next){
+ UserSchema.pre('remove',async function(next){
      const user=this
      await Tasks.deleteMany({owner:user._id})
      next()
@@ -105,7 +114,7 @@ new_user.methods.generateAuthToken=async function(){
 
 //build user model 
 
-const User=mongoose.model("User",new_user)
+const User=mongoose.model("User",UserSchema)
 
 //export the model 
 
