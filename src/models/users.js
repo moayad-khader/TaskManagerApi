@@ -13,7 +13,7 @@ const UserSchema=new mongoose.Schema({
         type:String,
         trim:true,
         required:true,
-        //TODO match => to exclude &* regular express "/^{a-z}A-Z-0-9\" , throw error
+        match:[/^[a-zA-Z0-9]+$/, 'is invalid']
     },
     email:{
         type:String,
@@ -21,11 +21,8 @@ const UserSchema=new mongoose.Schema({
         unique:true,
         trim:true,
         lowercase:true,
-        validate(value){
-            if(!validator.isEmail(value)){
-                throw Error("invalid email!");
-            }
-        }
+        match: [/\S+@\S+\.\S+/, 'is invalid']
+        
 
     }
     ,
