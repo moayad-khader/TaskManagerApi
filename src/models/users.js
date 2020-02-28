@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 const validator=require('validator');
 const bcrypt=require('bcrypt');
-//FIXME fix this in a way to let middleware to takke care of tokens
+
 const jwt=require('jsonwebtoken');
 const Tasks=require('../models/tasks');
 

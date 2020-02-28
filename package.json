@@ -7,7 +7,7 @@
     "start": "env-cmd -f ./config/dev.env node src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
     "test": "env-cmd -f ./config/test.env jest --watch --runInBand",
-    "db":"/home/moayad/mongodb/bin/mongod --dbpath=/home/moayad/mongodb-data"
+    "db": "/home/moayad/mongodb/bin/mongod --dbpath=/home/moayad/mongodb-data"
   },
   "jest": {
     "testEnviroment": "node"
@@ -20,7 +20,6 @@
     "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
     "mogodb": "0.0.1-security",
     "mongodb": "^3.4.1",
