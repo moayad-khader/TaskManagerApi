@@ -21,7 +21,7 @@ const UserSchema=new mongoose.Schema({
         unique:true,
         trim:true,
         lowercase:true,
-        match: [/\S+@\S+\.\S+/, 'is invalid']
+        match:[/\S+@\S+\.\S+/, 'is invalid']
         
 
     }
