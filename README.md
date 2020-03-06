@@ -7,7 +7,7 @@
 git clone https://github.com/moayad523/TaskManagerApi
 cd TaskManagerApi/
 npm install
-npm strat (or "npm run dev" to run the code in develompent environment) 
+npm strat (or "npm run dev" to run the code in development environment) 
 
 ```
 ## Dependencies
@@ -30,6 +30,7 @@ npm strat (or "npm run dev" to run the code in develompent environment)
 
 ## Running the tests
 ```
+cd TaskManagerApi/
 npm run test
 
 ```
