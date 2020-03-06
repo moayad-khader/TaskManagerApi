@@ -1,5 +1,5 @@
 # Task Manager Api
-#### This a simple task manager api with authentication system.
+#### This is a simple task manager api with authentication system.
 
 ## Getting Started 
 #### To get the Node server running locally:
